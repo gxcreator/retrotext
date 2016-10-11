@@ -1,4 +1,5 @@
 const path = require('path')
+const open = require('open')
 const RetroText = require(path.join("..", "main.js"))
 const text = new RetroText()
 
@@ -10,4 +11,4 @@ text.generate({
     line2: "Line 2",
     line3: "Line 3"
   }
-}).then(url => { console.log(url); }).catch( console.log );
+}).then(url => { open(url); }).catch( console.log );
