@@ -8,7 +8,7 @@ RetroText.prototype.generate = function (options) {
     if (options === undefined) reject("Invalid Options")
     let parsedOptions = {}
     parsedOptions.bcg = (!isNaN(options.background) && options.background > 0 && options.background < 6) ? options.background : 5
-    parsedOptions.txt = (!isNaN(options.textStyle) && options.textStyle > 0 && options.textStyle < 5) ? options.textStyle : 5
+    parsedOptions.txt = (!isNaN(options.textStyle) && options.textStyle > 0 && options.textStyle < 5) ? options.textStyle : 4
     if (options.text === undefined) options.text = {}
     parsedOptions.text1 = (options.text.line1 !== undefined) ? options.text.line1 : ""
     parsedOptions.text2 = (options.text.line2 !== undefined) ? options.text.line2 : ""
