@@ -1,0 +1,33 @@
+{
+  "name": "retrotext",
+  "version": "1.0.0",
+  "description": "API Bindings for the Retro Text Generator",
+  "main": "main.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "cheerio": "^0.22.0",
+    "request": "^2.75.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node ./tests/tests.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lolPants/retrotext.git"
+  },
+  "keywords": [
+    "retro",
+    "text",
+    "generator",
+    "api"
+  ],
+  "author": "Jack Baron <me@jackbaron.com> (https://jackbaron.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lolPants/retrotext/issues"
+  },
+  "homepage": "https://github.com/lolPants/retrotext#readme"
+}
