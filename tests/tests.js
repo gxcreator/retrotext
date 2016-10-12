@@ -11,4 +11,4 @@ text.generate({
     line2: "Line 2",
     line3: "Line 3"
   }
-}).then(url => { open(url); }).catch( console.log );
+}).then(url => { throw 'test' }).catch( console.log );
