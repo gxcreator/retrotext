@@ -5,6 +5,7 @@ Retro Text - API Bindings for the Retro Text Generator
 By Jack Baron  
 Copyright (c) Jack Baron 2016  
 Licensed under ISC License  
+[![Travis](https://img.shields.io/travis/lolPants/retrotext.svg?maxAge=2592000?style=flat-square)](https://www.npmjs.com/package/retrotext)    
 
 ## Installation
 Install the package using
