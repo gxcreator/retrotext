@@ -1,6 +1,6 @@
 {
   "name": "retrotext",
-  "version": "1.0.2",
+  "version": "1.1.4",
   "description": "API Bindings for the Retro Text Generator",
   "main": "main.js",
   "directories": {
