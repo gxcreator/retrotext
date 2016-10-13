@@ -11,7 +11,7 @@
 const path      = require('path')
 const open      = require('open')
 const r         = require('request')
-const crypto    = require('crypto');
+const crypto    = require('crypto')
 
 // Require Self
 const RetroText = require(path.join("..", "main.js"))
@@ -31,7 +31,7 @@ text.generate({
   r.get(url, (error, request, body) => {
     if (!error) {
       // Test Image Hash
-      let hash = crypto.createHash('md5').update(body).digest('hex');
+      let hash = crypto.createHash('md5').update(body).digest('hex')
       if (hash === "92a440c856d5f9150c1d527a9271729d") {
         // Hash is good
         process.exit(0)
@@ -46,4 +46,4 @@ text.generate({
 }).catch( err => {
   // Failure  
   process.exit(1)
-});
+})
