@@ -14,7 +14,7 @@ const r         = require('request')
 const crypto    = require('crypto')
 
 // Require Self
-const RetroText = require(path.join("..", "main.js"))
+const RetroText = require(path.join('..', 'lib', '/'))
 const text      = new RetroText()
 
 // Test it

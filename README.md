@@ -8,11 +8,11 @@ Copyright (c) Jack Baron 2016
 Licensed under ISC License  
 
 ## Installation
-Install the package using
-```npm i retrotext```
+Install the package using  
+`npm i retrotext`
 
-To add it as a dependency, use
-```npm i --save retrotext```
+To add it as a dependency, use  
+`yarn add retrotext` or `npm i -S retrotext`
 
 Once installed, require the package with
 

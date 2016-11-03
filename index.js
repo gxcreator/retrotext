@@ -7,5 +7,4 @@
   Main Module
 */
 
-// Export self from src
-module.exports = require('./src/retrotext.js')
+module.exports = require(require('path').join(__dirname, 'lib'))
