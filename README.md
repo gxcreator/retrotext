@@ -25,19 +25,26 @@ const text = new RetroText()
 Call the `generate` function on the new `RetroText` object.  
 The function returns a Promise with the url contained in it.  
 
-Example  
+### Options
+The `generate` function takes two options:  
+* `text` - An array of text lines (3 maximum)
+* `options` - An object containing `background` and `textStyle`  
+`background` takes a number from 1 - 5 inclusive    
+`textStyle` takes a number from 1 - 4 inclusive
+
+Example:
+
 ```js
 const RetroText = require('retrotext')
 const text = new RetroText()
 
-text.generate({
+text.generate([
+  'Line 1',
+  'Line 2',
+  'Line 3',
+], {
   background: 3,
   textStyle: 2,
-  text: {
-    line1: "Line 1",
-    line2: "Line 2",
-    line3: "Line 3"
-  }
 }).then(url => { console.log(url) }).catch( console.log )
 ```
 
