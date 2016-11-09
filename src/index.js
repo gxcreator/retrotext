@@ -8,7 +8,7 @@
 */
 
 // Require Dependencies
-const request = require('request')
+const request = require('superagent')
 const cheerio = require('cheerio')
 
 class RetroText {
@@ -17,6 +17,7 @@ class RetroText {
    * @param {array} text - Array of Text Lines
    * @param {Object} options - Options for Background and Text Styles
    * @throws {Error}
+   * @constructor
    */
   constructor (text = [], options) {
     // Reject if options are missing
@@ -25,8 +26,6 @@ class RetroText {
 
     // Define Parsed Options
     this._parsedOptions = this._parseOptions(text, options)
-
-    console.log(this._parsedOptions)
   }
 
   /**
@@ -34,6 +33,7 @@ class RetroText {
    * @param {array} text - Array of Text Lines
    * @param {Object} options - Options for Background and Text Styles
    * @returns {Object} Parsed Options
+   * @private
    */
   _parseOptions (text, options) {
     let _parsed = {}
@@ -45,6 +45,33 @@ class RetroText {
     _parsed.text3 = text[2] !== undefined ? text[2] : ``
 
     return _parsed
+  }
+
+  /**
+   * Grab URL from Body of page
+   * @param {string} body - Page body to scrape
+   * @returns {string} URL of scraped image
+   * @private
+   */
+  _grabURL (body) {
+    // Define local jQuery (I'm sorry it works OK)
+    let $ = cheerio.load(body)
+
+    // Find the URL in the response and remove the ?download parameter
+    let url = $('.options-container').children('.downloads-container').children('.links')
+      .children()
+      .first()
+      .children()
+      .first()
+      .attr('href')
+
+    return url.split(`?`)[0]
+  }
+
+  _parse () {
+    return new Promise((resolve, reject) => {
+
+    })
   }
 }
 
