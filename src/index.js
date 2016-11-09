@@ -32,7 +32,7 @@ class RetroText {
    * Parse Options into Correct Format
    * @param {array} text - Array of Text Lines
    * @param {Object} options - Options for Background and Text Styles
-   * @returns {Object} Parsed Options
+   * @returns {Object} - Parsed Options
    * @private
    */
   _parseOptions (text, options) {
@@ -50,7 +50,7 @@ class RetroText {
   /**
    * Grab URL from Body of page
    * @param {string} body - Page body to scrape
-   * @returns {string} URL of scraped image
+   * @returns {string} - URL of scraped image
    * @private
    */
   _grabURL (body) {
@@ -72,6 +72,7 @@ class RetroText {
    * Parse options into a URL
    * @async
    * @returns {Promise.<string>} - URL from API
+   * @throws {Promise.<Error>}
    */
   _parse () {
     let _parsedOptions = this._parsedOptions
