@@ -30,7 +30,7 @@ The `RetroText` class takes two options:
 
 ## Usage
 Call the `getURL` or `getBuffer` functions on the new `RetroText` object.  
-The function returns a Promise with the url / buffer respectively.  
+The function returns a Promise with the URL / buffer respectively.  
 
 Example:
 
