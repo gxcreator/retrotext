@@ -73,6 +73,7 @@ class RetroText {
    * @async
    * @returns {Promise.<string>} - URL from API
    * @throws {Promise.<Error>}
+   * @private
    */
   _parse () {
     let _parsedOptions = this._parsedOptions
@@ -86,6 +87,16 @@ class RetroText {
           resolve(this._grabURL(res.text))
         })
     })
+  }
+
+  /**
+   * Get generated URL
+   * @async
+   * @returns {Promise.<string>} - Generated URL from API
+   * @throws {Promise.<Error>}
+   */
+  getURL () {
+    return this._parse()
   }
 }
 
