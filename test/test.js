@@ -9,7 +9,6 @@
 
 // Require Dependencies
 const path      = require('path')
-const r         = require('request')
 const crypto    = require('crypto')
 
 // Require Self
