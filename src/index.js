@@ -8,8 +8,8 @@
 */
 
 // Require Dependencies
-const request = require('superagent')
-const cheerio = require('cheerio')
+const request = require(`superagent`)
+const cheerio = require(`cheerio`)
 
 class RetroText {
   /**
@@ -58,7 +58,7 @@ class RetroText {
     let $ = cheerio.load(body)
 
     // Find the URL in the response and remove the ?download parameter
-    let url = $('.options-container').children('.downloads-container').children('.links')
+    let url = $(`.options-container`).children(`.downloads-container`).children(`.links`)
       .children()
       .first()
       .children()
@@ -68,9 +68,22 @@ class RetroText {
     return url.split(`?`)[0]
   }
 
+  /**
+   * Parse options into a URL
+   * @async
+   * @returns {Promise.<string>} - URL from API
+   */
   _parse () {
+    let _parsedOptions = this._parsedOptions
     return new Promise((resolve, reject) => {
-
+      request
+        .post(`http://photofunia.com/effects/retro-wave`)
+        .type('form')
+        .send(_parsedOptions)
+        .end((err, res) => {
+          if (err) reject(err)
+          resolve(this._grabURL(res.text))
+        })
     })
   }
 }

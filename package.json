@@ -5,7 +5,6 @@
   "main": "index.js",
   "dependencies": {
     "cheerio": "^0.22.0",
-    "request": "^2.75.0",
     "superagent": "^2.3.0"
   },
   "devDependencies": {

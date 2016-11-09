@@ -22,3 +22,6 @@ const text      = new RetroText([
   background: 3,
   textStyle: 2,
 })
+
+text._parse()
+  .then(console.log)
