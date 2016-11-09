@@ -24,4 +24,17 @@ const text      = new RetroText([
 })
 
 text.getBuffer()
-  .then(console.log)
+  .then(img => {
+    let hash = crypto.createHash('md5').update(img).digest('hex')
+    if (hash === '731ab4fa94807c2529ffb8467fbf26df') {
+      // Hash is good
+      process.exit(0)
+    } else {
+      // Hash is wrong
+      process.exit(1)
+    }
+  })
+  .catch(() => {
+    // Failure
+    process.exit(1)
+  })
