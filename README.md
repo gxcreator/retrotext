@@ -18,7 +18,7 @@ Once installed, require the package with
 
 ```js
 const RetroText = require('retrotext')
-const text = new RetroText(options)
+const text = new RetroText(text, options)
 ```
 
 ### Options
