@@ -18,37 +18,37 @@ Once installed, require the package with
 
 ```js
 const RetroText = require('retrotext')
-const text = new RetroText()
+const text = new RetroText(options)
 ```
 
-## Usage
-Call the `generate` function on the new `RetroText` object.  
-The function returns a Promise with the url contained in it.  
-
 ### Options
-The `generate` function takes two options:  
+The `RetroText` class takes two options:  
 * `text` - An array of text lines (3 maximum)
 * `options` - An object containing `background` and `textStyle`  
 `background` takes a number from 1 - 5 inclusive    
 `textStyle` takes a number from 1 - 4 inclusive
 
+## Usage
+Call the `getURL` or `getBuffer` functions on the new `RetroText` object.  
+The function returns a Promise with the url / buffer respectively.  
+
 Example:
 
 ```js
 const RetroText = require('retrotext')
-const text = new RetroText()
-
-text.generate([
+const text = new RetroText([
   'Line 1',
   'Line 2',
   'Line 3',
 ], {
   background: 3,
   textStyle: 2,
-}).then(url => { console.log(url) }).catch( console.log )
+})
+
+text.getURL().then(url => { console.log(url) }).catch( console.log )
 ```
 
 ## Credits
 - Jack Baron (https://github.com/lolpants) - Author
-- Request Team (https://github.com/request) - Request Library
+- Visionmedia (https://github.com/visionmedia) - Superagent Library
 - CheerioJS Team (https://github.com/cheeriojs) - Cheerio Library
