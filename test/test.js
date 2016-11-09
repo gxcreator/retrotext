@@ -23,5 +23,5 @@ const text      = new RetroText([
   textStyle: 2,
 })
 
-text.getURL()
+text.getBuffer()
   .then(console.log)

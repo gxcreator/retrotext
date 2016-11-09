@@ -10,6 +10,7 @@
 // Require Dependencies
 const request = require(`superagent`)
 const cheerio = require(`cheerio`)
+const base64  = require(`node-base64-image`)
 
 class RetroText {
   /**
@@ -97,6 +98,26 @@ class RetroText {
    */
   getURL () {
     return this._parse()
+  }
+
+  /**
+   * Get generated Buffer
+   * @async
+   * @returns {Promise.<buffer>} - Generated Buffer from API
+   * @throws {Promise.<Error>}
+   */
+  getBuffer () {
+    let _parse = this._parse()
+    return new Promise((resolve, reject) => {
+      _parse
+        .then(url => {
+          base64.encode(url, {}, (err, res) => {
+            if (err) reject(err)
+            resolve(res)
+          })
+        })
+        .catch(reject)
+    })
   }
 }
 

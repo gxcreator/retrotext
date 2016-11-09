@@ -5,13 +5,14 @@
   "main": "index.js",
   "dependencies": {
     "cheerio": "^0.22.0",
+    "node-base64-image": "^1.0.3",
     "superagent": "^2.3.0"
   },
   "devDependencies": {
-    "open": "0.0.5",
     "eslint": "^3.9.1",
     "jsdoc": "^3.4.2",
-    "minami": "^1.1.1"
+    "minami": "^1.1.1",
+    "open": "0.0.5"
   },
   "scripts": {
     "test": "npm run lint && npm run tests",
