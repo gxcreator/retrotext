@@ -13,7 +13,7 @@ const r         = require('request')
 const crypto    = require('crypto')
 
 // Require Self
-const RetroText = require(path.join('..', 'lib'))
+const RetroText = require(path.join('..', 'src'))
 const text      = new RetroText([
   'Line 1',
   'Line 2',
