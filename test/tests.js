@@ -8,12 +8,15 @@
 */
 
 // Require Dependencies
-const path      = require('path')
-const crypto    = require('crypto')
+const crypto = require('crypto')
+const chai = require('chai')
+const expect = chai.expect
+const chaiAsPromised = require('chai-as-promised')
+chai.use(chaiAsPromised)
 
 // Require Self
-const RetroText = require(path.join('..', 'src'))
-const text      = new RetroText([
+const RetroText = require('../src/')
+const text = new RetroText([
   'Line 1',
   'Line 2',
   'Line 3',
@@ -22,18 +25,20 @@ const text      = new RetroText([
   textStyle: 2,
 })
 
-text.getBuffer()
-  .then(img => {
-    let hash = crypto.createHash('md5').update(img).digest('hex')
-    if (hash === '731ab4fa94807c2529ffb8467fbf26df') {
-      // Hash is good
-      process.exit(0)
-    } else {
-      // Hash is wrong
-      process.exit(1)
-    }
+describe('RetroText', () => {
+  describe('Generation', () => {
+    it('Fulfills Promise', () => {
+      expect(text.getBuffer()).to.eventually.be.fulfilled
+    })
+
+    it('Has Correct Hash', () => {
+      let hash = '731ab4fa94807c2529ffb8467fbf26df'
+      expect(
+        text
+          .getBuffer()
+          .then(buffer => crypto.createHash('md5').update(buffer).digest('hex'))
+        )
+      .to.eventually.equal(hash)
+    })
   })
-  .catch(() => {
-    // Failure
-    process.exit(1)
-  })
+})
