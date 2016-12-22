@@ -2,10 +2,16 @@
 [![Travis](https://img.shields.io/travis/lolPants/retrotext.svg?maxAge=2592000?style=flat-square)](https://www.npmjs.com/package/retrotext)    
 
 ## About
-Retro Text - API Bindings for the Retro Text Generator  
+Retro Text - API Bindings for the Retro Text Generator on PhotoFunia  
 By Jack Baron  
-Copyright (c) Jack Baron 2016  
 Licensed under ISC License  
+[PhotoFunia](https://photofunia.com/)  
+
+## Credits
+- Jack Baron (https://github.com/lolpants) - Author
+- Capsule Digital (https://photofunia.com/) - Original Online Generator
+- Visionmedia (https://github.com/visionmedia) - Superagent Library
+- CheerioJS Team (https://github.com/cheeriojs) - Cheerio Library
 
 ## Installation
 Install the package using  
@@ -47,8 +53,3 @@ const text = new RetroText([
 
 text.getURL().then(url => { console.log(url) }).catch( console.log )
 ```
-
-## Credits
-- Jack Baron (https://github.com/lolpants) - Author
-- Visionmedia (https://github.com/visionmedia) - Superagent Library
-- CheerioJS Team (https://github.com/cheeriojs) - Cheerio Library
