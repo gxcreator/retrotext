@@ -1,3 +1,5 @@
+// Type Definitions
+
 /**
  * @typedef {Object} TextObject
  * @property {string} line1
@@ -21,6 +23,10 @@
  * @property {string} text3
  */
 
+// Package Dependencies
+const snekfetch = require('snekfetch')
+const cheerio = require('cheerio')
+
 /**
  * Retro Text Generator
  */
@@ -30,8 +36,8 @@ class RetroText {
    */
   constructor (data = {
     text: { line1: '', line2: '', line3: '' },
-    backgroundStyle: 2,
-    textStyle: 3,
+    backgroundStyle: 3,
+    textStyle: 4,
   }) {
     this.setup(data)
   }
@@ -159,27 +165,45 @@ class RetroText {
    */
   get _parsedOptions () {
     return {
-      bcg: this.backgroundStyle || 2,
-      txt: this.textStyle || 3,
+      bcg: this.backgroundStyle || 3,
+      txt: this.textStyle || 4,
       text1: this.text.line1 || '',
       text2: this.text.line2 || '',
       text3: this.text.line3 || '',
     }
   }
+
+  /**
+   * Fetch the URL to the Generated Image
+   * @returns {Promise.<string>}
+   */
+  async fetchURL () {
+    let data = await snekfetch.post('http://photofunia.com/effects/retro-wave')
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+      .send(this._parsedOptions)
+    let body = cheerio.load(data.text)
+    let url = body(`.options-container`)
+      .children(`.downloads-container`)
+      .children(`.links`)
+      .children()
+      .first()
+      .children()
+      .first()
+      .attr('href')
+
+    url = url.split('?')[0]
+    return url
+  }
+
+  /**
+   * Fetch the Generated Image as a Buffer Object
+   * @returns {Promise.<Buffer>}
+   */
+  async fetchBuffer () {
+    let url = await this.fetchURL()
+    let res = await snekfetch.get(url)
+    return res.body
+  }
 }
-
-// Test Object
-const text = new RetroText()
-  .setLine1('Testing')
-  .setLine2('This')
-  .setLine3('Thang')
-  .setBackgroundStyle(2)
-  .setTextStyle(1)
-
-console.log(text._parsedOptions)
-
-// Used for debugging
-// VSCode Workaround
-setInterval(() => {}, 9999999999999)
 
 module.exports = RetroText
