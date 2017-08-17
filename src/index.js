@@ -159,11 +159,11 @@ class RetroText {
    */
   get _parsedOptions () {
     return {
-      bcg: this.backgroundStyle,
-      txt: this.textStyle,
-      text1: this.text.line1,
-      text2: this.text.line2,
-      text3: this.text.line3,
+      bcg: this.backgroundStyle || 2,
+      txt: this.textStyle || 3,
+      text1: this.text.line1 || '',
+      text2: this.text.line2 || '',
+      text3: this.text.line3 || '',
     }
   }
 }
