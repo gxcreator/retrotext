@@ -64,7 +64,7 @@ class RetroText {
    * @returns {RetroText}
    */
   setLine1 (line) {
-    this.text.line1 = line
+    this.text.line1 = line.toString()
     return this
   }
 
@@ -74,7 +74,7 @@ class RetroText {
    * @returns {RetroText}
    */
   setLine2 (line) {
-    this.text.line2 = line
+    this.text.line2 = line.toString()
     return this
   }
 
@@ -84,7 +84,7 @@ class RetroText {
    * @returns {RetroText}
    */
   setLine3 (line) {
-    this.text.line3 = line
+    this.text.line3 = line.toString()
     return this
   }
 
@@ -98,6 +98,7 @@ class RetroText {
     if (typeof number === 'string') number = parseInt(number)
     if (number < 1 || number > 3) throw new Error('Invalid Line Number')
 
+    line = line.toString()
     switch (number) {
       case 1:
         this.text.line1 = line
