@@ -13,6 +13,15 @@
  */
 
 /**
+ * @typedef {Object} ParsedOptions
+ * @property {number} bcg
+ * @property {number} txt
+ * @property {string} text1
+ * @property {string} text2
+ * @property {string} text3
+ */
+
+/**
  * Retro Text Generator
  */
 class RetroText {
@@ -143,6 +152,20 @@ class RetroText {
     this.textStyle = style
     return this
   }
+
+  /**
+   * @private
+   * @returns {ParsedOptions}
+   */
+  get _parsedOptions () {
+    return {
+      bcg: this.backgroundStyle,
+      txt: this.textStyle,
+      text1: this.text.line1,
+      text2: this.text.line2,
+      text3: this.text.line3,
+    }
+  }
 }
 
 // Test Object
@@ -153,7 +176,7 @@ const text = new RetroText()
   .setBackgroundStyle(2)
   .setTextStyle(1)
 
-console.log(text)
+console.log(text._parsedOptions)
 
 // Used for debugging
 // VSCode Workaround
