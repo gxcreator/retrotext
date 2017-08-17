@@ -1,55 +1,40 @@
-# Retro Text
-[![Travis](https://img.shields.io/travis/lolPants/retrotext.svg?maxAge=2592000?style=flat-square)](https://www.npmjs.com/package/retrotext)    
+<h1 align='center'>Retro Text <a href='https://www.npmjs.com/package/retrotext'><img src='https://img.shields.io/travis/lolPants/retrotext.svg?maxAge=2592000%3Fstyle=flat-square' /></a></h1>
 
-## About
-Retro Text - API Bindings for the Retro Text Generator on PhotoFunia  
-By Jack Baron  
-Licensed under ISC License  
-[PhotoFunia](https://photofunia.com/)  
+<h5 align='center'>API Bindings for the Retro Text Generator on PhotoFunia. Licensed under ISC License.</h5>
 
-## Credits
-- Jack Baron (https://github.com/lolpants) - Author
-- Capsule Digital (https://photofunia.com/) - Original Online Generator
-- Visionmedia (https://github.com/visionmedia) - Superagent Library
-- CheerioJS Team (https://github.com/cheeriojs) - Cheerio Library
+<h2 align='center'><i>NOTE: As of Version 2.0.0 Nodejs 8 or higher is REQUIRED</i></h2>
 
 ## Installation
-Install the package using  
-`npm i retrotext`
-
-To add it as a dependency, use  
-`yarn add retrotext` or `npm i -S retrotext`
-
-Once installed, require the package with
-
-```js
-const RetroText = require('retrotext')
-const text = new RetroText(text, options)
-```
-
-### Options
-The `RetroText` class takes two options:  
-* `text` - An array of text lines (3 maximum)
-* `options` - An object containing `background` and `textStyle`  
-`background` takes a number from 1 - 5 inclusive    
-`textStyle` takes a number from 1 - 4 inclusive
+<div style='width: 100%; display: flex; justify-content: space-around;'>
+  <span>Using NPM: <code>npm install retrotext</code></span>
+  <span>Using Yarn: <code>yarn add retrotext</code></span>
+</div>
 
 ## Usage
-Call the `getURL` or `getBuffer` functions on the new `RetroText` object.  
-The function returns a Promise with the URL / buffer respectively.  
-
-Example:
-
+First, create a new instance of the RetroText class:
 ```js
 const RetroText = require('retrotext')
-const text = new RetroText([
-  'Line 1',
-  'Line 2',
-  'Line 3',
-], {
-  background: 3,
-  textStyle: 2,
-})
-
-text.getURL().then(url => { console.log(url) }).catch( console.log )
+const text = new RetroText()
 ```
+
+Next, add details as appropriate:
+```js
+const text = new RetroText()
+  .setLine1('Line 1')
+  .setLine1('Line 1')
+  .setLine1('Line 1')
+  .setBackgroundStyle(1)
+  .setTextStyle(4)
+```
+
+Finally, fetch either a URL to the final image, or the image downloaded as a `Buffer` object:  
+*Note: Both methods return Promises*
+```js
+let URL = await text.fetchURL()
+let URL = await text.fetchBuffer()
+```
+
+## Credits
+- Capsule Digital (https://photofunia.com/) - Original Online Generator
+- Gus Caplan (https://github.com/devsnek) - Snekfetch HTTP Library
+- Cheerio Team (https://github.com/cheeriojs) - Cheerio Library

@@ -1,125 +1,209 @@
-/*
-  Retro Text Generator
-  By Jack Baron (me@jackbaron.com)
-  Copyright (c) Jack Baron 2016
-  Licensed under ISC License
+// Type Definitions
 
-  Generate Module
-*/
+/**
+ * @typedef {Object} TextObject
+ * @property {string} line1
+ * @property {string} line2
+ * @property {string} line3
+ */
 
-// Require Dependencies
-const request = require(`superagent`)
-const cheerio = require(`cheerio`)
-const base64  = require(`node-base64-image`)
+/**
+ * @typedef {Object} RetroTextProperties
+ * @property {TextObject} text
+ * @property {number} backgroundStyle
+ * @property {number} textStyle
+ */
 
+/**
+ * @typedef {Object} ParsedOptions
+ * @property {number} bcg
+ * @property {number} txt
+ * @property {string} text1
+ * @property {string} text2
+ * @property {string} text3
+ */
+
+// Package Dependencies
+const snekfetch = require('snekfetch')
+const cheerio = require('cheerio')
+
+/**
+ * Retro Text Generator
+ */
 class RetroText {
   /**
-   * Retro Text Generator
-   * @param {array} text - Array of Text Lines
-   * @param {Object} options - Options for Background and Text Styles
-   * @throws {Error}
-   * @constructor
+   * @param {RetroTextProperties} data Default Properties
    */
-  constructor (text = [], options) {
-    // Reject if options are missing
-    if (text === undefined) throw new Error(`Invalid Options`)
-    if (options === undefined) throw new Error(`Invalid Options`)
-
-    // Define Parsed Options
-    this._parsedOptions = this._parseOptions(text, options)
+  constructor (data = {
+    text: { line1: '', line2: '', line3: '' },
+    backgroundStyle: 3,
+    textStyle: 4,
+  }) {
+    this.setup(data)
   }
 
   /**
-   * Parse Options into Correct Format
-   * @param {array} text - Array of Text Lines
-   * @param {Object} options - Options for Background and Text Styles
-   * @returns {Object} - Parsed Options
-   * @private
+   * Setup Class Variables
+   * @param {RetroTextProperties} data Default Properties
    */
-  _parseOptions (text, options) {
-    let _parsed = {}
-    _parsed.bcg = !isNaN(options.background) && options.background > 0 && options.background < 6 ? options.background : 5
-    _parsed.txt = !isNaN(options.textStyle) && options.textStyle > 0 && options.textStyle < 5 ? options.textStyle : 4
+  setup (data) {
+    /**
+     * @type {?TextObject}
+     */
+    this.text = data.text
 
-    _parsed.text1 = text[0] !== undefined ? text[0] : ``
-    _parsed.text2 = text[1] !== undefined ? text[1] : ``
-    _parsed.text3 = text[2] !== undefined ? text[2] : ``
+    /**
+     * @type {?number}
+     */
+    this.backgroundStyle = data.backgroundStyle
 
-    return _parsed
+    /**
+     * @type {?number}
+     */
+    this.textStyle = data.textStyle
   }
 
   /**
-   * Grab URL from Body of page
-   * @param {string} body - Page body to scrape
-   * @returns {string} - URL of scraped image
-   * @private
+   * Set Text for Generation
+   * @param {TextObject} text Text Object
+   * @returns {RetroText}
    */
-  _grabURL (body) {
-    // Define local jQuery (I'm sorry it works OK)
-    let $ = cheerio.load(body)
+  setText (text) {
+    this.text = text
+    return this
+  }
 
-    // Find the URL in the response and remove the ?download parameter
-    let url = $(`.options-container`).children(`.downloads-container`).children(`.links`)
+  /**
+   * Set Line 1 Text for Generation
+   * @param {string} line Line 1 Text
+   * @returns {RetroText}
+   */
+  setLine1 (line) {
+    this.text.line1 = line.toString()
+    return this
+  }
+
+  /**
+   * Set Line 2 Text for Generation
+   * @param {string} line Line 2 Text
+   * @returns {RetroText}
+   */
+  setLine2 (line) {
+    this.text.line2 = line.toString()
+    return this
+  }
+
+  /**
+   * Set Line 3 Text for Generation
+   * @param {string} line Line 3 Text
+   * @returns {RetroText}
+   */
+  setLine3 (line) {
+    this.text.line3 = line.toString()
+    return this
+  }
+
+  /**
+   * Set a Line's Text for Generation
+   * @param {number|string} number Line Number (1 - 3)
+   * @param {string} line Line Text
+   * @returns {RetroText}
+   */
+  setLine (number, line) {
+    // Error Checks
+    if (Number.isNaN(number)) throw new Error('Line Number is not a Number')
+    if (number < 1 || number > 3) throw new Error('Invalid Line Number')
+    // Enforce Integer Line Numbers
+    if (typeof number === 'string') number = parseInt(number)
+
+    line = line.toString()
+    switch (number) {
+      case 1:
+        this.text.line1 = line
+        break
+      case 2:
+        this.text.line2 = line
+        break
+      case 3:
+        this.text.line3 = line
+        break
+    }
+    return this
+  }
+
+  /**
+   * Set the Background Style for the Image
+   * @param {number} style Background Style (1 - 5)
+   * @returns {RetroText}
+   */
+  setBackgroundStyle (style) {
+    // Error Checks
+    if (Number.isNaN(style)) throw new Error('Style is not a Number')
+    if (style < 1 || style > 5) throw new Error('Invalid Style Number')
+
+    this.backgroundStyle = style
+    return this
+  }
+
+  /**
+   * Set the Text Style for the Image
+   * @param {number} style Text Style (1 - 4)
+   * @returns {RetroText}
+   */
+  setTextStyle (style) {
+    // Error Checks
+    if (Number.isNaN(style)) throw new Error('Style is not a Number')
+    if (style < 1 || style > 4) throw new Error('Invalid Style Number')
+
+    this.textStyle = style
+    return this
+  }
+
+  /**
+   * @private
+   * @returns {ParsedOptions}
+   */
+  get _parsedOptions () {
+    return {
+      bcg: this.backgroundStyle || 3,
+      txt: this.textStyle || 4,
+      text1: this.text.line1 || '',
+      text2: this.text.line2 || '',
+      text3: this.text.line3 || '',
+    }
+  }
+
+  /**
+   * Fetch the URL to the Generated Image
+   * @returns {Promise.<string>}
+   */
+  async fetchURL () {
+    let data = await snekfetch.post('http://photofunia.com/effects/retro-wave')
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+      .send(this._parsedOptions)
+    let body = cheerio.load(data.text)
+    let url = body(`.options-container`)
+      .children(`.downloads-container`)
+      .children(`.links`)
       .children()
       .first()
       .children()
       .first()
       .attr('href')
 
-    return url.split(`?`)[0]
+    url = url.split('?')[0]
+    return url
   }
 
   /**
-   * Parse options into a URL
-   * @async
-   * @returns {Promise.<string>} - URL from API
-   * @throws {Promise.<Error>}
-   * @private
+   * Fetch the Generated Image as a Buffer Object
+   * @returns {Promise.<Buffer>}
    */
-  _parse () {
-    let _parsedOptions = this._parsedOptions
-    return new Promise((resolve, reject) => {
-      request
-        .post(`http://photofunia.com/effects/retro-wave`)
-        .type('form')
-        .send(_parsedOptions)
-        .end((err, res) => {
-          if (err) reject(err)
-          resolve(this._grabURL(res.text))
-        })
-    })
-  }
-
-  /**
-   * Get generated URL
-   * @async
-   * @returns {Promise.<string>} - Generated URL from API
-   * @throws {Promise.<Error>}
-   */
-  getURL () {
-    return this._parse()
-  }
-
-  /**
-   * Get generated Buffer
-   * @async
-   * @returns {Promise.<buffer>} - Generated Buffer from API
-   * @throws {Promise.<Error>}
-   */
-  getBuffer () {
-    let _parse = this._parse()
-    return new Promise((resolve, reject) => {
-      _parse
-        .then(url => {
-          base64.encode(url, {}, (err, res) => {
-            if (err) reject(err)
-            resolve(res)
-          })
-        })
-        .catch(reject)
-    })
+  async fetchBuffer () {
+    let url = await this.fetchURL()
+    let res = await snekfetch.get(url)
+    return res.body
   }
 }
 
-// Export Class
 module.exports = RetroText

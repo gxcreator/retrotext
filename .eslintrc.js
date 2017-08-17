@@ -1,7 +1,8 @@
 module.exports = {
   "extends": "eslint:recommended",
+  "parser": "babel-eslint",
   "parserOptions": {
-    "ecmaVersion": 6
+    "ecmaVersion": 7
   },
   "env": {
     "es6": true,
@@ -104,6 +105,7 @@ module.exports = {
     "quote-props": ["error", "as-needed"],
     "quotes": ["error", "single", { "avoidEscape": true, "allowTemplateLiterals": true }],
     "semi-spacing": "error",
+    "semi": ["error", "never"],
     "space-before-blocks": "error",
     "space-before-function-paren": ["error", "always"],
     "space-in-parens": "error",
@@ -127,6 +129,7 @@ module.exports = {
 
     "max-depth": ["error", 10],
     "no-console": ["error", { allow: ["warn", "error", "log"] }],
-    "no-shadow": "off"
+    "no-shadow": "off",
+    "no-constant-condition": ["error", { "checkLoops": false }]
   }
 }
