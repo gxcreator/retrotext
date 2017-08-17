@@ -31,7 +31,7 @@ Finally, fetch either a URL to the final image, or the image downloaded as a `Bu
 *Note: Both methods return Promises*
 ```js
 let URL = await text.fetchURL()
-let URL = await text.fetchBuffer()
+let buffer = await text.fetchBuffer()
 ```
 
 ## Credits
