@@ -95,8 +95,10 @@ class RetroText {
    * @returns {RetroText}
    */
   setLine (number, line) {
+    // Error Checks
     if (Number.isNaN(number)) throw new Error('Line Number is not a Number')
     if (number < 1 || number > 3) throw new Error('Invalid Line Number')
+    // Enforce Integer Line Numbers
     if (typeof number === 'string') number = parseInt(number)
 
     line = line.toString()
@@ -120,6 +122,7 @@ class RetroText {
    * @returns {RetroText}
    */
   setBackgroundStyle (style) {
+    // Error Checks
     if (Number.isNaN(style)) throw new Error('Style is not a Number')
     if (style < 1 || style > 5) throw new Error('Invalid Style Number')
 
@@ -133,6 +136,7 @@ class RetroText {
    * @returns {RetroText}
    */
   setTextStyle (style) {
+    // Error Checks
     if (Number.isNaN(style)) throw new Error('Style is not a Number')
     if (style < 1 || style > 4) throw new Error('Invalid Style Number')
 
@@ -141,6 +145,7 @@ class RetroText {
   }
 }
 
+// Test Object
 const text = new RetroText()
   .setLine1('Testing')
   .setLine2('This')
