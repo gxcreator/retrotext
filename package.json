@@ -2,7 +2,7 @@
   "name": "retrotext",
   "version": "2.0.0",
   "description": "API Bindings for the Retro Text Generator",
-  "main": "src/",
+  "main": "src/index.js",
   "scripts": {
     "test": "eslint --ext .js src/"
   },
