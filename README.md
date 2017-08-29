@@ -1,4 +1,12 @@
-<h1 align='center'>Retro Text <a href='https://www.npmjs.com/package/retrotext'><img src='https://img.shields.io/travis/lolPants/retrotext.svg?maxAge=2592000%3Fstyle=flat-square' /></a></h1>
+<h1 align='center'>Retro Text</h1>
+<div align="center">
+  <p>
+    <a href="https://www.npmjs.com/package/retrotext"><img src="https://img.shields.io/npm/v/retrotext.svg?maxAge=3600" alt="NPM version" /></a>
+    <a href="https://www.npmjs.com/package/retrotext"><img src="https://img.shields.io/npm/dt/retrotext.svg?maxAge=3600" alt="NPM downloads" /></a>
+    <a href="https://travis-ci.org/lolPants/retrotext"><img src="https://travis-ci.org/lolPants/retrotext.svg" alt="Build status" /></a>
+    <a href="https://david-dm.org/lolpants/retrotext"><img src="https://img.shields.io/david/lolpants/retrotext.svg?maxAge=3600" alt="Dependencies" /></a>
+  </p>
+</div>
 
 <h5 align='center'>API Bindings for the Retro Text Generator on PhotoFunia. Licensed under ISC License.</h5>
 
