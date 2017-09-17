@@ -24,7 +24,7 @@
  */
 
 // Package Dependencies
-const snekfetch = require('snekfetch')
+const superagent = require('superagent')
 const cheerio = require('cheerio')
 
 /**
@@ -178,18 +178,19 @@ class RetroText {
    * @returns {Promise.<string>}
    */
   async fetchURL () {
-    let data = await snekfetch.post('http://photofunia.com/effects/retro-wave')
-      .set('Content-Type', 'application/x-www-form-urlencoded')
-      .send(this._parsedOptions)
+    let { bcg, txt, text1, text2, text3 } = this._parsedOptions
+    let server = Math.floor(Math.random() * 10)
+    let data = await superagent.post(`http://photofunia.com/categories/all_effects/retro-wave?server=${server}`)
+      .field({ bcg })
+      .field({ txt })
+      .field({ text1 })
+      .field({ text2 })
+      .field({ text3 })
+
     let body = cheerio.load(data.text)
-    let url = body(`.options-container`)
-      .children(`.downloads-container`)
-      .children(`.links`)
-      .children()
-      .first()
-      .children()
-      .first()
-      .attr('href')
+    let url = body('a').filter(function filter () {
+      return body(this).text().includes('Large') // eslint-disable-line
+    }).attr('href')
 
     url = url.split('?')[0]
     return url
@@ -201,7 +202,7 @@ class RetroText {
    */
   async fetchBuffer () {
     let url = await this.fetchURL()
-    let res = await snekfetch.get(url)
+    let res = await superagent.get(url)
     return res.body
   }
 }
