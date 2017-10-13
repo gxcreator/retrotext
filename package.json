@@ -1,10 +1,10 @@
 {
   "name": "retrotext",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "API Bindings for the Retro Text Generator",
   "main": "src/index.js",
   "scripts": {
-    "test": "eslint --ext .js src/"
+    "test": "eslint src/"
   },
   "repository": {
     "type": "git",
