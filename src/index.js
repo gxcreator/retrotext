@@ -9,12 +9,12 @@ const cheerio = require('cheerio')
  */
 class RetroText {
   /**
-   * @param {Text} text Text Object
+   * @param {Text} [text] Text Object
    * @param {BackgroundStyle} [backgroundStyle] Background Style
    * @param {TextStyle} [textStyle] Text Style
    */
   constructor (text, backgroundStyle, textStyle) {
-    this.text = text
+    this.text = text || ['', '', '']
     this.backgroundStyle = backgroundStyle || 'palmTri'
     this.textStyle = textStyle || 'chrome'
   }
