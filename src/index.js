@@ -1,4 +1,5 @@
-const { get, post } = require('snekfetch')
+const FormData = require('form-data')
+const { default: fetch } = require('node-fetch')
 const cheerio = require('cheerio')
 
 /**
@@ -144,16 +145,21 @@ class RetroText {
    * @returns {Promise.<string>}
    */
   async fetchURL () {
-    let server = Math.floor(Math.random() * 10)
+    const server = Math.floor(Math.random() * 10)
 
-    let data = await post(`http://photofunia.com/categories/all_effects/retro-wave?server=${server}`)
-      .attach('bcg', this.backgroundStyleCode)
-      .attach('txt', this.textStyleCode)
-      .attach('text1', this.text[0])
-      .attach('text2', this.text[1])
-      .attach('text3', this.text[2])
+    const form = new FormData()
+    form.append('bcg', this.backgroundStyleCode)
+    form.append('txt', this.textStyleCode)
+    form.append('text1', this.text[0])
+    form.append('text2', this.text[1])
+    form.append('text3', this.text[2])
 
-    let body = cheerio.load(data.body)
+    const resp = await fetch(`http://photofunia.com/categories/all_effects/retro-wave?server=${server}`, {
+      method: 'POST',
+      body: form,
+    })
+
+    const body = cheerio.load(await resp.text())
     let url = body('a').filter(function filter () {
       return body(this).text().includes('Large') // eslint-disable-line
     }).attr('href')
@@ -167,9 +173,11 @@ class RetroText {
    * @returns {Promise.<Buffer>}
    */
   async fetchBuffer () {
-    let url = await this.fetchURL()
-    let res = await get(url)
-    return res.body
+    const url = await this.fetchURL()
+    const resp = await fetch(url)
+    const body = await resp.buffer()
+
+    return body
   }
 }
 
