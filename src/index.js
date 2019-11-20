@@ -154,7 +154,7 @@ class RetroText {
     form.append('text2', this.text[1])
     form.append('text3', this.text[2])
 
-    const resp = await fetch(`http://photofunia.com/categories/all_effects/retro-wave?server=${server}`, {
+    const resp = await fetch(`https://photofunia.com/categories/all_effects/retro-wave?server=${server}`, {
       method: 'POST',
       body: form,
     })
